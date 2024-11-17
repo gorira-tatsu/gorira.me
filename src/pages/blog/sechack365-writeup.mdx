@@ -1,0 +1,39 @@
+---
+layout: '../../layouts/markdown.astro'
+title: 'SecHack365 CTF WriteUp by Gorira'
+---
+
+import { Image } from 'astro:assets';
+import image1 from '/public/0001/figure1.png';
+import image2 from '/public/0001/figure2.png';
+
+2024-11-15から2024-11-17までのSecHack365大阪イベント期間中に開催された有志 (@singetu0096,  @iwancof, @hiikunZ, @ShioKudo) によるCTF、SecHack365 CTF@大阪に参加しました。本記事はWriteUpになります。
+
+チーム名「破壊王ブレイキング」で参加者はGoriraTatsu単体での参加になります。スコアは700点で、Forensics, Reversing, Web, Miscを満遍なく取る形になりました。本当はガッツリCTFやりたかったんですけど、眠すぎる&SecHack365本体の進捗がまずいということで、解けたのは片手間に取り組めた数問のみ、という結果でした。
+
+#### Look at LSB
+
+StegOnlineを使って、画像を解析しました。Bit Planesから解析してみると手書きで書かれたflagの画像が出現しました。
+
+<Image src={image1} alt="test" format="webp" width={540} />
+
+<Image src={image2} alt="test" format="webp" width={540} />
+
+#### very simple flag checker
+
+c++で書かれたコードのコンパイル済みのファイルを解析する問題です。Binaryエディタを使って解析したところ、コードの中にflagが記載されていました。
+
+#### 船
+
+OSINT問題です。Google画像検索で範囲を絞って検索をかけたところ、「古代船なみはや」であることがわかりました。座標はGoogleの右クリックで取得したものを四捨五入して入力しました。
+
+#### SuperQuickLogin
+
+サイトのURLとFlaskで書かれたプログラムのコードが与えられました。プログラムのコードの中にあるdatabase.dbをsqlite3で開き、select文で取得しpasswordをゲットしました。
+
+#### じゃんけん
+
+じゃんけんで勝利しflagを得ました(@ShioKudoさんだった気がします)。ちなみにじゃんけんのコツですが、相手が注意を払っていないタイミングで決闘を申し込み、こちらで詠唱をすることを徹底すると良いです。自分は夕食会場へ向かうエレベーター内で雑談している時に切り込みました。
+
+#### 終わりに
+このようなCTFを開催してくださった有志の皆様に感謝申し上げます。この記事は帰りの新幹線で記入しているのですが、どうも眠くてたまならないので、ここで失礼。
